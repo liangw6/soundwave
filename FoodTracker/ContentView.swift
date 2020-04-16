@@ -7,10 +7,17 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        Button(action: {
+            print("button was tapped")
+            playSound(sound: "bell_sound", type: "wav")
+        }) {
+            Text("Button")
+        }
+//        Text("Hello, World!")
     }
 }
 

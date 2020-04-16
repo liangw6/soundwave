@@ -14,6 +14,8 @@
 		8E1C39CB2447C20B0028591B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E1C39CA2447C20B0028591B /* Preview Assets.xcassets */; };
 		8E1C39CE2447C20B0028591B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1C39CC2447C20B0028591B /* LaunchScreen.storyboard */; };
 		8E1C39D92447C20B0028591B /* FoodTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39D82447C20B0028591B /* FoodTrackerTests.swift */; };
+		8E1C39E42447EEA80028591B /* PlaySound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39E32447EEA80028591B /* PlaySound.swift */; };
+		8E1C39E6244807290028591B /* bell_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8E1C39E5244807280028591B /* bell_sound.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		8E1C39D42447C20B0028591B /* FoodTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E1C39D82447C20B0028591B /* FoodTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTrackerTests.swift; sourceTree = "<group>"; };
 		8E1C39DA2447C20B0028591B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E1C39E32447EEA80028591B /* PlaySound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySound.swift; sourceTree = "<group>"; };
+		8E1C39E5244807280028591B /* bell_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bell_sound.wav; path = ../../bell_sound.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +83,11 @@
 		8E1C39C02447C2060028591B /* FoodTracker */ = {
 			isa = PBXGroup;
 			children = (
+				8E1C39E5244807280028591B /* bell_sound.wav */,
 				8E1C39C12447C2060028591B /* AppDelegate.swift */,
 				8E1C39C32447C2060028591B /* SceneDelegate.swift */,
 				8E1C39C52447C2060028591B /* ContentView.swift */,
+				8E1C39E32447EEA80028591B /* PlaySound.swift */,
 				8E1C39C72447C20B0028591B /* Assets.xcassets */,
 				8E1C39CC2447C20B0028591B /* LaunchScreen.storyboard */,
 				8E1C39CF2447C20B0028591B /* Info.plist */,
@@ -189,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E1C39CE2447C20B0028591B /* LaunchScreen.storyboard in Resources */,
+				8E1C39E6244807290028591B /* bell_sound.wav in Resources */,
 				8E1C39CB2447C20B0028591B /* Preview Assets.xcassets in Resources */,
 				8E1C39C82447C20B0028591B /* Assets.xcassets in Resources */,
 			);
@@ -209,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E1C39C22447C2060028591B /* AppDelegate.swift in Sources */,
+				8E1C39E42447EEA80028591B /* PlaySound.swift in Sources */,
 				8E1C39C42447C2060028591B /* SceneDelegate.swift in Sources */,
 				8E1C39C62447C2060028591B /* ContentView.swift in Sources */,
 			);
@@ -364,13 +372,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = 8NUPNPMMNT;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = FoodTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.FoodTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.practice123.FoodTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -383,13 +392,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = 8NUPNPMMNT;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = FoodTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.FoodTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.practice123.FoodTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
