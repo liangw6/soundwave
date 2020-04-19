@@ -16,6 +16,8 @@
 		8E1C39D92447C20B0028591B /* FoodTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39D82447C20B0028591B /* FoodTrackerTests.swift */; };
 		8E1C39E42447EEA80028591B /* PlaySound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39E32447EEA80028591B /* PlaySound.swift */; };
 		8E1C39E6244807290028591B /* bell_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8E1C39E5244807280028591B /* bell_sound.wav */; };
+		8E1C39E8244C16760028591B /* FFTWorkHouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39E7244C16760028591B /* FFTWorkHouse.swift */; };
+		8E1C39EA244CF9EE0028591B /* PushAndPullClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39E9244CF9EE0028591B /* PushAndPullClassifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 		8E1C39DA2447C20B0028591B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E1C39E32447EEA80028591B /* PlaySound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySound.swift; sourceTree = "<group>"; };
 		8E1C39E5244807280028591B /* bell_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bell_sound.wav; path = ../../bell_sound.wav; sourceTree = "<group>"; };
+		8E1C39E7244C16760028591B /* FFTWorkHouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTWorkHouse.swift; sourceTree = "<group>"; };
+		8E1C39E9244CF9EE0028591B /* PushAndPullClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAndPullClassifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +91,9 @@
 				8E1C39C12447C2060028591B /* AppDelegate.swift */,
 				8E1C39C32447C2060028591B /* SceneDelegate.swift */,
 				8E1C39C52447C2060028591B /* ContentView.swift */,
+				8E1C39E9244CF9EE0028591B /* PushAndPullClassifier.swift */,
 				8E1C39E32447EEA80028591B /* PlaySound.swift */,
+				8E1C39E7244C16760028591B /* FFTWorkHouse.swift */,
 				8E1C39C72447C20B0028591B /* Assets.xcassets */,
 				8E1C39CC2447C20B0028591B /* LaunchScreen.storyboard */,
 				8E1C39CF2447C20B0028591B /* Info.plist */,
@@ -217,6 +223,8 @@
 			files = (
 				8E1C39C22447C2060028591B /* AppDelegate.swift in Sources */,
 				8E1C39E42447EEA80028591B /* PlaySound.swift in Sources */,
+				8E1C39E8244C16760028591B /* FFTWorkHouse.swift in Sources */,
+				8E1C39EA244CF9EE0028591B /* PushAndPullClassifier.swift in Sources */,
 				8E1C39C42447C2060028591B /* SceneDelegate.swift in Sources */,
 				8E1C39C62447C2060028591B /* ContentView.swift in Sources */,
 			);

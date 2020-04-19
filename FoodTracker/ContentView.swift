@@ -10,14 +10,19 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
+    
+    @ObservedObject var pushOrPull = PushAndPullClassifier()
+    
     var body: some View {
-        Button(action: {
-            print("button was tapped")
-            playSound(sound: "bell_sound", type: "wav")
-        }) {
-            Text("Button")
+        VStack {
+            Button(action: {
+                print("button was tapped")
+                playSound(sound: "bell_sound", type: "wav")
+            }) {
+                Text("Emit Sound")
+            }
+            Text("\(self.pushOrPull.pushOrPullState)")
         }
-//        Text("Hello, World!")
     }
 }
 
