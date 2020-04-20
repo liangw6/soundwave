@@ -12,7 +12,6 @@ import SwiftUI
 import Combine
 
 class PushAndPullClassifier: ObservableObject {
-    
     let engine = AVAudioEngine()
     var requiredSamples: AVAudioFrameCount = 0
     var ringBuffer: [AVAudioPCMBuffer] = []
@@ -21,41 +20,29 @@ class PushAndPullClassifier: ObservableObject {
     @Published var pushOrPullState: String = "Calculating"
     
     init() {
-        AVAudioSession.sharedInstance().requestRecordPermission { granted in
-            if granted {
-                // The user granted access. Present recording interface.
-                print("permission granted")
-            } else {
-                // Present message to user indicating that recording
-                // can't be performed until they change their preference
-                // under Settings -> Privacy -> Microphone
-                print("user said no :( ")
-                exit(1)
-            }
-        }
-        
-        startRecording()
-        print("recording in progress")
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4*60) {
-            print("stopping")
-            self.stopRecording()
-        }
-    }
-    
-    func startRecording() {
         let input = engine.inputNode
 
         let bus = 0
         let inputFormat = input.inputFormat(forBus: bus)
 
+        // the most recent samples that we are keeping in the circular buffer
+        // Here is the last 5 seconds
         requiredSamples = AVAudioFrameCount(inputFormat.sampleRate * 5)
 
         input.installTap(onBus: bus, bufferSize: 2048, format: inputFormat) { (buffer, time) -> Void in
             self.appendAudioBuffer(buffer)
         }
-
+    }
+    
+    func startRecording() {
         try! engine.start()
+        print("recording starts")
+        
+        // allow recording for 5 sec
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            print("stopping")
+            self.stopRecording()
+        }
     }
 
     func appendAudioBuffer(_ buffer: AVAudioPCMBuffer) {
@@ -87,6 +74,8 @@ class PushAndPullClassifier: ObservableObject {
         for buffer in ringBuffer {
             try! file.write(from: buffer)
         }
+        
+        print("audio saved at \(url)")
     }
     
 }

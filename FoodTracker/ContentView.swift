@@ -17,10 +17,14 @@ struct ContentView: View {
         VStack {
             Button(action: {
                 print("button was tapped")
-                playSound(sound: "bell_sound", type: "wav")
+                DispatchQueue.main.async() {
+                    playSound(sound: "bell_sound", type: "wav")
+                }
+                self.pushOrPull.startRecording()
             }) {
                 Text("Emit Sound")
             }
+            Text("")
             Text("\(self.pushOrPull.pushOrPullState)")
         }
     }

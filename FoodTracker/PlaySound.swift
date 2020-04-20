@@ -57,7 +57,7 @@ let triangle = { (phase: Float) -> Float in
     return 2.0 * (value - 0.5)
 }
 
-func playSignalSound(signalName: String = "", frequency: Float = 440, amplitude: Float = 0.5, duration: Float = 5.0) {
+func playSignalSound(signalName: String = "", frequency: Float = 440, amplitude: Float = 1.0, duration: Float = 5.0) {
 //    let frequency = getFloatForKeyOrDefault(OptionNames.frequency, 440)
 //    let amplitude = min(max(getFloatForKeyOrDefault(OptionNames.amplitude, 0.5), 0.0), 1.0)
 //    amplitude = min(max(amplitude, 0.0), 1.0)
