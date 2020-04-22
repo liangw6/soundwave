@@ -11,18 +11,7 @@ import AVFoundation
 
 //var audioPlayer: AVAudioPlayer?
 
-func playSound(sound: String, type: String) {
-//    if let path = Bundle.main.path(forResource: sound, ofType: type) {
-//        do {
-//            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
-//            audioPlayer?.play()
-//            print("playing sound~")
-//        } catch {
-//            print("could not find and play the sound file")
-//        }
-//    }
-    playSignalSound()
-}
+
 let twoPi = 2 * Float.pi
 
 let sine = { (phase: Float) -> Float in
@@ -57,7 +46,7 @@ let triangle = { (phase: Float) -> Float in
     return 2.0 * (value - 0.5)
 }
 
-func playSignalSound(signalName: String = "", frequency: Float = 440, amplitude: Float = 1.0, duration: Float = 5.0) {
+func playSignalSound(_ sampleRate: Float, frequency: Float = 440, amplitude: Float = 1.0, duration: Float = 5.0) -> AVAudioSourceNode {
 //    let frequency = getFloatForKeyOrDefault(OptionNames.frequency, 440)
 //    let amplitude = min(max(getFloatForKeyOrDefault(OptionNames.amplitude, 0.5), 0.0), 1.0)
 //    amplitude = min(max(amplitude, 0.0), 1.0)
@@ -70,35 +59,18 @@ func playSignalSound(signalName: String = "", frequency: Float = 440, amplitude:
     }
 
     var signal: (Float) -> Float
+    signal = sine
 
-    if signalName != "" {
-        let signalFunctions = ["sine": sine,
-                               "noise": whiteNoise,
-                               "square": square,
-                               "sawtoothUp": sawtoothUp,
-                               "sawtoothDown": sawtoothDown,
-                               "triangle": triangle]
-
-        if let signalFunction = signalFunctions[signalName] {
-            signal = signalFunction
-        } else {
-            print("Please specify a valid signal type: \(signalFunctions.keys.sorted().joined(separator: ", "))")
-            exit(1)
-        }
-    } else {
-        signal = sine
-    }
-
-    let engine = AVAudioEngine()
-    let mainMixer = engine.mainMixerNode
-    let output = engine.outputNode
-    let outputFormat = output.inputFormat(forBus: 0)
-    let sampleRate = Float(outputFormat.sampleRate)
-    // Use output format for input but reduce channel count to 1
-    let inputFormat = AVAudioFormat(commonFormat: outputFormat.commonFormat,
-                                    sampleRate: outputFormat.sampleRate,
-                                    channels: 1,
-                                    interleaved: outputFormat.isInterleaved)
+//    let engine = AVAudioEngine()
+//    let mainMixer = engine.mainMixerNode
+//    let output = engine.outputNode
+//    let outputFormat = output.inputFormat(forBus: 0)
+//    let sampleRate = Float(outputFormat.sampleRate)
+//    // Use output format for input but reduce channel count to 1
+//    let inputFormat = AVAudioFormat(commonFormat: outputFormat.commonFormat,
+//                                    sampleRate: outputFormat.sampleRate,
+//                                    channels: 1,
+//                                    interleaved: outputFormat.isInterleaved)
 
     var currentPhase: Float = 0
     // The interval by which we advance the phase each frame.
@@ -126,26 +98,29 @@ func playSignalSound(signalName: String = "", frequency: Float = 440, amplitude:
         return noErr
     }
 
-    engine.attach(srcNode)
-
-    engine.connect(srcNode, to: mainMixer, format: inputFormat)
-    engine.connect(mainMixer, to: output, format: outputFormat)
-    mainMixer.outputVolume = 0.5
-
-    do {
-        try engine.start()
-
-        // When writing the output file, the run loop will be stopped from the tap block
-        // after the number of samples for the requested duration are written.
-        // Otherwise, the run duration of the run loop is specified when started.
-//        if outFile != nil {
-//        CFRunLoopRun()
-//        } else {
-        CFRunLoopRunInMode(.defaultMode, CFTimeInterval(duration), false)
-//        }
-        engine.stop()
-    } catch {
-        print("Could not start engine: \(error)")
-    }
-
+//    engine.attach(srcNode)
+//    engine.connect(srcNode, to: output, format: inputFormat)
+    return srcNode
 }
+
+//    engine.connect(srcNode, to: mainMixer, format: inputFormat)
+//    engine.connect(mainMixer, to: output, format: outputFormat)
+//    mainMixer.outputVolume = 0.5
+//
+//    do {
+//        try engine.start()
+//
+//        // When writing the output file, the run loop will be stopped from the tap block
+//        // after the number of samples for the requested duration are written.
+//        // Otherwise, the run duration of the run loop is specified when started.
+////        if outFile != nil {
+////        CFRunLoopRun()
+////        } else {
+//        CFRunLoopRunInMode(.defaultMode, CFTimeInterval(duration), false)
+////        }
+//        engine.stop()
+//    } catch {
+//        print("Could not start engine: \(error)")
+//    }
+
+//}

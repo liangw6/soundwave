@@ -71,13 +71,6 @@ func FFTPlayGround() {
         }
     }
     
-    let componentFrequencies = forwardOutputImag.enumerated().filter {
-        $0.element < -1
-    }.map {
-        return $0.offset
-    }
-            
-    // Prints "[1, 5, 25, 30, 75, 100, 300, 500, 512, 1023]"
-    print(componentFrequencies)
+    
 
 }
