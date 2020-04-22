@@ -79,6 +79,11 @@ class SimpleFFT {
                                 print("\(Double(magnitude.offset + 1 + lowest_possible) * sample_rate / Double(n)) \(magnitude.element)")
                             }
                         }
+//                        for magnitude in forwardOutputMagnitude.enumerated() {
+//                            if magnitude.element > 1 {
+//                                print("\(Double(magnitude.offset + 1) * sample_rate / Double(n)) \(magnitude.element)")
+//                            }
+//                        }
                         print()
 //                        let topMagnitudes = forwardOutputMagnitude.enumerated().filter {
 //                            $0.element > 10

@@ -34,6 +34,7 @@ struct ContentView: View {
                 // Here is the last 5 sec
                 self.simpleFFT.set_sample_rate(inputFormat.sampleRate) // AVAudioFrameCount(inputFormat.sampleRate * 5)
                 input.installTap(onBus: bus, bufferSize: 2048, format: inputFormat) { (buffer, time) -> Void in
+                    buffer.frameLength = 2048
                     self.gotSomeAudio(buffer)
                 }
                 // set up engine for source node
@@ -80,7 +81,7 @@ struct ContentView: View {
         }
         print("input framelength \(samples.count)")
         self.simpleFFT.runFFTonSignal(samples)
-//        self.count = self.count + 1
+        self.count = self.count + 1
     }
     
     func endRecording() {
