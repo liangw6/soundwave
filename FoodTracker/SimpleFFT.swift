@@ -22,6 +22,8 @@ class SimpleFFT {
     
     var sample_rate: Double = 48000
     
+    let dividing_threashold = 16570
+    
     init () {
         fftSetup = vDSP.FFT(log2n: log2n,
             radix: .radix2,
@@ -32,7 +34,8 @@ class SimpleFFT {
         self.sample_rate = sample_rate
     }
     
-    func runFFTonSignal(_ signal: [Float]) {
+    // returns two arrays, frequencies and corresponding magnitudes
+    func runFFTonSignal(_ signal: [Float]) -> [Float] {
         var forwardInputReal = [Float](repeating: 0,
                                        count: halfN)
         var forwardInputImag = [Float](repeating: 0,
@@ -43,6 +46,9 @@ class SimpleFFT {
                                         count: halfN)
         var forwardOutputMagnitude = [Float](repeating: 0,
                                         count: halfN)
+        
+        
+        var highlights_mag = [Float](repeating: 0, count: 3)
         
         forwardInputReal.withUnsafeMutableBufferPointer { forwardInputRealPtr in
             forwardInputImag.withUnsafeMutableBufferPointer { forwardInputImagPtr in
@@ -74,9 +80,12 @@ class SimpleFFT {
                         // filter out the low frequencies
                         let lowest_possible = Int(16000 * (Double(n) / sample_rate))
                         let highest_possible = halfN - 1
-                        for magnitude in forwardOutputMagnitude[lowest_possible...highest_possible].enumerated() {
+                        let filteredOutput = forwardOutputMagnitude[lowest_possible...highest_possible]
+                        for magnitude in filteredOutput.enumerated() {
                             if magnitude.element > 1 {
-                                print("\(Double(magnitude.offset + 1 + lowest_possible) * sample_rate / Double(n)) \(magnitude.element)")
+                                let curr_freq = Double(magnitude.offset + 1 + lowest_possible) * sample_rate / Double(n)
+                                let curr_mag = magnitude.element
+                                print("\(curr_freq) \(curr_mag)")
                             }
                         }
 //                        for magnitude in forwardOutputMagnitude.enumerated() {
@@ -85,6 +94,17 @@ class SimpleFFT {
 //                            }
 //                        }
                         print()
+                        
+                        // filteredOutput is an array slice, which uses the same array buffer as outputmagnitude
+                        // as well as index!!!
+                        // so here, we are using index notation of output magnitude but only on filteredOutput
+                        // to ignore lower frequency results
+                        let dividing_bin = Int(Double(dividing_threashold) * (Double(n) / sample_rate))
+                        assert(filteredOutput[lowest_possible...dividing_bin].count > 0)
+                        assert(filteredOutput[(dividing_bin + 1)...highest_possible].count > 0)
+                        highlights_mag[0] = filteredOutput[lowest_possible...(dividing_bin - 1)].reduce(0, +)
+                        highlights_mag[1] = filteredOutput[dividing_bin]
+                        highlights_mag[2] = filteredOutput[(dividing_bin + 1)...highest_possible].reduce(0, +)
 //                        let topMagnitudes = forwardOutputMagnitude.enumerated().filter {
 //                            $0.element > 10
 //                        }.map {
@@ -95,6 +115,7 @@ class SimpleFFT {
                 }
             }
         }
+        return highlights_mag
     }
     
 //    func runFFTonSignal2(_ signal: [Float]) {

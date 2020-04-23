@@ -18,6 +18,14 @@ struct ContentView: View {
     
     @State var count = 0
     
+    @State var leftResultBuffer: ResultBuffer = ResultBuffer(life_span: 5, passThresholdCount: 3, threshold: 1.92)
+    @State var rightResultBuffer: ResultBuffer = ResultBuffer(life_span: 5, passThresholdCount: 3, threshold: 2.4)
+    
+    @State var leftValue: Float = 0
+    @State var midValue: Float = 0
+    @State var rightValue: Float = 0
+    
+    
     var body: some View {
         VStack {
             Button(action: {
@@ -59,7 +67,7 @@ struct ContentView: View {
                 print("starting")
 
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     print("stopping")
                     self.endRecording()
                 }
@@ -68,20 +76,44 @@ struct ContentView: View {
             }
             Text("")
             Text("\(self.pushOrPullState)")
+            Text("")
+            Text("")
+            Text("Left Side: \(self.leftValue)")
+            Text("Peak:      \(self.midValue)")
+            Text("Right Side: \(self.rightValue)")
         }
     }
     
     func gotSomeAudio(_ buffer: AVAudioPCMBuffer) {
         var samples:[Float] = []
-        print("framelength \(buffer.frameLength)")
+//        print("framelength \(buffer.frameLength)")
         for i in 0 ..< 2048
         {
             let theSample = (buffer.floatChannelData?.pointee[i])!
             samples.append(theSample)
         }
-        print("input framelength \(samples.count)")
-        self.simpleFFT.runFFTonSignal(samples)
+//        print("input framelength \(samples.count)")
         self.count = self.count + 1
+        let highlight_mag = self.simpleFFT.runFFTonSignal(samples)
+        
+        self.leftValue = highlight_mag[0] / highlight_mag[1]
+        self.midValue = highlight_mag[1]
+        self.rightValue = highlight_mag[2] / highlight_mag[1]
+        
+        self.leftResultBuffer.addNewResult(self.leftValue)
+        self.rightResultBuffer.addNewResult(self.rightValue)
+        
+        if self.leftResultBuffer.passThreshold() {
+            self.pushOrPullState = "Pull"
+        } else if self.rightResultBuffer.passThreshold() {
+            self.pushOrPullState = "Push"
+        } else {
+            self.pushOrPullState = "None"
+        }
+
+//        print("Left Side: \(self.leftValue)")
+////        print("Peak:      \(self.midValue)")
+//        print("Right Side: \(self.rightValue)")
     }
     
     func endRecording() {

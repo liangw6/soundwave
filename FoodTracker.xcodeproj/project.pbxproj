@@ -18,6 +18,7 @@
 		8E1C39E6244807290028591B /* bell_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8E1C39E5244807280028591B /* bell_sound.wav */; };
 		8E1C39E8244C16760028591B /* FFTWorkHouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39E7244C16760028591B /* FFTWorkHouse.swift */; };
 		8E1C39EA244CF9EE0028591B /* SimpleFFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39E9244CF9EE0028591B /* SimpleFFT.swift */; };
+		8E1C39F2245145AB0028591B /* ResultBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39F1245145AB0028591B /* ResultBuffer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		8E1C39E5244807280028591B /* bell_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bell_sound.wav; path = ../../bell_sound.wav; sourceTree = "<group>"; };
 		8E1C39E7244C16760028591B /* FFTWorkHouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTWorkHouse.swift; sourceTree = "<group>"; };
 		8E1C39E9244CF9EE0028591B /* SimpleFFT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFFT.swift; sourceTree = "<group>"; };
+		8E1C39F1245145AB0028591B /* ResultBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBuffer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				8E1C39C12447C2060028591B /* AppDelegate.swift */,
 				8E1C39C32447C2060028591B /* SceneDelegate.swift */,
 				8E1C39C52447C2060028591B /* ContentView.swift */,
+				8E1C39F1245145AB0028591B /* ResultBuffer.swift */,
 				8E1C39E32447EEA80028591B /* PlaySound.swift */,
 				8E1C39E9244CF9EE0028591B /* SimpleFFT.swift */,
 				8E1C39E7244C16760028591B /* FFTWorkHouse.swift */,
@@ -223,6 +226,7 @@
 			files = (
 				8E1C39C22447C2060028591B /* AppDelegate.swift in Sources */,
 				8E1C39E42447EEA80028591B /* PlaySound.swift in Sources */,
+				8E1C39F2245145AB0028591B /* ResultBuffer.swift in Sources */,
 				8E1C39E8244C16760028591B /* FFTWorkHouse.swift in Sources */,
 				8E1C39EA244CF9EE0028591B /* SimpleFFT.swift in Sources */,
 				8E1C39C42447C2060028591B /* SceneDelegate.swift in Sources */,
