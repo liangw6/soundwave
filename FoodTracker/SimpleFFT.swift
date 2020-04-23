@@ -75,7 +75,7 @@ class SimpleFFT {
                                          output: &forwardOutput)
                         
                         // calculate magnitude
-                        print("output highilights")
+//                        print("output highilights")
                         vDSP.absolute(forwardOutput, result: &forwardOutputMagnitude)
                         
 //                        highlights_freq = [829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842, 843]

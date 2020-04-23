@@ -15,18 +15,18 @@ struct ContentView: View {
     
     let engine = AVAudioEngine()
     var simpleFFT: SimpleFFT = SimpleFFT()
-    @State var pushOrPullState: String = "Calculating"
+    @State var pushOrPullState: String = "None"
     
     @State var count = 0
     
-    @State var leftResultBuffer: ResultBuffer = ResultBuffer(life_span: 5, passThresholdCount: 3, threshold: 1.92)
-    @State var rightResultBuffer: ResultBuffer = ResultBuffer(life_span: 5, passThresholdCount: 3, threshold: 2.4)
+    @State var leftResultBuffer: ResultBuffer = ResultBuffer(life_span: 7, pass_threshold_count: 4, threshold: 1.2)
+    @State var rightResultBuffer: ResultBuffer = ResultBuffer(life_span: 7, pass_threshold_count: 4, threshold: 1.1)
     
     @State var leftValue: Float = 0
     @State var midValue: Float = 0
     @State var rightValue: Float = 0
     
-    let frequencyBuffer = [17.85, 17.87, 17.89, 17.92, 17.94, 17.96, 17.98, 18.00, 18.02, 18.04, 18.07, 18.09, 18.11, 18.13, 18.15]
+    let frequencyBuffer = ["17.85", "17.87", "17.89", "17.92", "17.94", "17.96", "17.98", "18.00", "18.02", "18.04", "18.07", "18.09", "18.11", "18.13", "18.15"]
     @State var magnitudeBuffer = [Float] (repeating: 0, count: 15)
     
     
@@ -86,23 +86,26 @@ struct ContentView: View {
 //            Text("Left Side: \(self.leftValue)")
 //            Text("Peak:      \(self.midValue)")
 //            Text("Right Side: \(self.rightValue)")
-            HStack {
-              // 2
-              ForEach(0..<15) { i in
-                // 3
-                VStack {
-                  // 4
-//                  Spacer()
-                  // 5
-                  Rectangle()
-                    .fill(Color.green)
-                    .frame(width: 20, height: CGFloat(self.magnitudeBuffer[i]) * 10)
-                  // 6
-                  Text("\(self.frequencyBuffer[i])")
-                    .font(.footnote)
-                    .frame(height: 20)
+            VStack {
+                HStack {
+                  // 2
+                  ForEach(0..<15) { i in
+                    // 3
+                    VStack {
+                      // 4
+    //                  Spacer()
+                      // 5
+                      Rectangle()
+                        .fill(Color.green)
+                        .frame(width: 20, height: CGFloat(self.magnitudeBuffer[i]) * 10)
+                      // 6
+                      Text("\(self.frequencyBuffer[i])")
+                        .font(.footnote)
+                        .frame(height: 20)
+                    }
+                  }
                 }
-              }
+                Text("kHz")
             }.offset(y: 300)
         }
     }
@@ -118,6 +121,12 @@ struct ContentView: View {
 //        print("input framelength \(samples.count)")
         self.count = self.count + 1
         self.magnitudeBuffer = self.simpleFFT.runFFTonSignal(samples)
+        
+        print("left")
+        self.leftResultBuffer.addNewResult(Array(self.magnitudeBuffer[0...6]))
+        print("right")
+        self.rightResultBuffer.addNewResult(Array(self.magnitudeBuffer[8...14]))
+        
 //        let highlight_mag = self.simpleFFT.runFFTonSignal(samples)
 //
 //        self.leftValue = highlight_mag[0] / highlight_mag[1]
@@ -127,13 +136,13 @@ struct ContentView: View {
 //        self.leftResultBuffer.addNewResult(self.leftValue)
 //        self.rightResultBuffer.addNewResult(self.rightValue)
 //
-//        if self.leftResultBuffer.passThreshold() {
-//            self.pushOrPullState = "Pull"
-//        } else if self.rightResultBuffer.passThreshold() {
-//            self.pushOrPullState = "Push"
-//        } else {
-//            self.pushOrPullState = "None"
-//        }
+        if self.leftResultBuffer.passThreshold() {
+            self.pushOrPullState = "Pull"
+        } else if self.rightResultBuffer.passThreshold() {
+            self.pushOrPullState = "Push"
+        } else {
+            self.pushOrPullState = "None"
+        }
 
 //        print("Left Side: \(self.leftValue)")
 ////        print("Peak:      \(self.midValue)")
