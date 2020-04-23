@@ -9,6 +9,7 @@
 import SwiftUI
 import AVFoundation
 import Accelerate
+import CoreGraphics
 
 struct ContentView: View {
     
@@ -24,6 +25,9 @@ struct ContentView: View {
     @State var leftValue: Float = 0
     @State var midValue: Float = 0
     @State var rightValue: Float = 0
+    
+    let frequencyBuffer = [17.85, 17.87, 17.89, 17.92, 17.94, 17.96, 17.98, 18.00, 18.02, 18.04, 18.07, 18.09, 18.11, 18.13, 18.15]
+    @State var magnitudeBuffer = [Float] (repeating: 0, count: 15)
     
     
     var body: some View {
@@ -67,7 +71,7 @@ struct ContentView: View {
                 print("starting")
 
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                     print("stopping")
                     self.endRecording()
                 }
@@ -76,11 +80,30 @@ struct ContentView: View {
             }
             Text("")
             Text("\(self.pushOrPullState)")
-            Text("")
-            Text("")
-            Text("Left Side: \(self.leftValue)")
-            Text("Peak:      \(self.midValue)")
-            Text("Right Side: \(self.rightValue)")
+//            Text("")
+//            Text("")
+//            Spacer().frame(height: 500)
+//            Text("Left Side: \(self.leftValue)")
+//            Text("Peak:      \(self.midValue)")
+//            Text("Right Side: \(self.rightValue)")
+            HStack {
+              // 2
+              ForEach(0..<15) { i in
+                // 3
+                VStack {
+                  // 4
+//                  Spacer()
+                  // 5
+                  Rectangle()
+                    .fill(Color.green)
+                    .frame(width: 20, height: CGFloat(self.magnitudeBuffer[i]) * 10)
+                  // 6
+                  Text("\(self.frequencyBuffer[i])")
+                    .font(.footnote)
+                    .frame(height: 20)
+                }
+              }
+            }.offset(y: 300)
         }
     }
     
@@ -94,22 +117,23 @@ struct ContentView: View {
         }
 //        print("input framelength \(samples.count)")
         self.count = self.count + 1
-        let highlight_mag = self.simpleFFT.runFFTonSignal(samples)
-        
-        self.leftValue = highlight_mag[0] / highlight_mag[1]
-        self.midValue = highlight_mag[1]
-        self.rightValue = highlight_mag[2] / highlight_mag[1]
-        
-        self.leftResultBuffer.addNewResult(self.leftValue)
-        self.rightResultBuffer.addNewResult(self.rightValue)
-        
-        if self.leftResultBuffer.passThreshold() {
-            self.pushOrPullState = "Pull"
-        } else if self.rightResultBuffer.passThreshold() {
-            self.pushOrPullState = "Push"
-        } else {
-            self.pushOrPullState = "None"
-        }
+        self.magnitudeBuffer = self.simpleFFT.runFFTonSignal(samples)
+//        let highlight_mag = self.simpleFFT.runFFTonSignal(samples)
+//
+//        self.leftValue = highlight_mag[0] / highlight_mag[1]
+//        self.midValue = highlight_mag[1]
+//        self.rightValue = highlight_mag[2] / highlight_mag[1]
+//
+//        self.leftResultBuffer.addNewResult(self.leftValue)
+//        self.rightResultBuffer.addNewResult(self.rightValue)
+//
+//        if self.leftResultBuffer.passThreshold() {
+//            self.pushOrPullState = "Pull"
+//        } else if self.rightResultBuffer.passThreshold() {
+//            self.pushOrPullState = "Push"
+//        } else {
+//            self.pushOrPullState = "None"
+//        }
 
 //        print("Left Side: \(self.leftValue)")
 ////        print("Peak:      \(self.midValue)")
