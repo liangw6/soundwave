@@ -6,6 +6,16 @@ Soundwave sends a high frequency signal (18 Khz, usually inaudible) through spea
 ## Run
 Simply compile and run in xcode!
 
+## Main interface
+Here is the main interface of soundwave. By pressing the button of "Emit Signal", the soundwave system will begin operational, calculating doppler effect and displaying frequency changes. The system will stop automatically after 10 seconds.
+
+Below the button is result of gesture classification. It can be "push", "pull" or "none", the last of which suggests there is no significant Doppler effect to indicate movement.
+
+At the buttom of the screen, it displays, in real-time, the magnitude of frequency (as magnified outputs from FFT). User gestures of "push" and "pull" will generate a strong and clearly visible Dopploer effect here.
+
+Note: to re-run soundwave, user will need to restart the application. In other words, the "Emit Signal" button can be used only once per launch.
+![alt text](IMG_0178.jpg)
+
 ## Requirement
 This code uses SwiftUI, so it requires target devices to be at IOS 13 or later.
 

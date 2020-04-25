@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E0A7D2C245410C40096DD1C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8E0A7D2B245410C40096DD1C /* README.md */; };
+		8E0A7D2E2454153F0096DD1C /* IMG_0178.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8E0A7D2D2454153F0096DD1C /* IMG_0178.jpg */; };
 		8E1C39C22447C2060028591B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39C12447C2060028591B /* AppDelegate.swift */; };
 		8E1C39C42447C2060028591B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39C32447C2060028591B /* SceneDelegate.swift */; };
 		8E1C39C62447C2060028591B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C39C52447C2060028591B /* ContentView.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		8E0A7D2B245410C40096DD1C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		8E0A7D2D2454153F0096DD1C /* IMG_0178.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_0178.jpg; sourceTree = SOURCE_ROOT; };
 		8E1C39BE2447C2060028591B /* FoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E1C39C12447C2060028591B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E1C39C32447C2060028591B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				8E1C39C32447C2060028591B /* SceneDelegate.swift */,
 				8E1C39C52447C2060028591B /* ContentView.swift */,
 				8E0A7D2B245410C40096DD1C /* README.md */,
+				8E0A7D2D2454153F0096DD1C /* IMG_0178.jpg */,
 				8E1C39F1245145AB0028591B /* ResultBuffer.swift */,
 				8E1C39E32447EEA80028591B /* PlaySound.swift */,
 				8E1C39E9244CF9EE0028591B /* SimpleFFT.swift */,
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E1C39CE2447C20B0028591B /* LaunchScreen.storyboard in Resources */,
+				8E0A7D2E2454153F0096DD1C /* IMG_0178.jpg in Resources */,
 				8E1C39E6244807290028591B /* bell_sound.wav in Resources */,
 				8E0A7D2C245410C40096DD1C /* README.md in Resources */,
 				8E1C39CB2447C20B0028591B /* Preview Assets.xcassets in Resources */,
