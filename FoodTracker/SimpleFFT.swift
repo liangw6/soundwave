@@ -5,6 +5,8 @@
 //  Created by Liang Arthur on 4/19/20.
 //  Copyright © 2020 Liang Arthur. All rights reserved.
 //
+//  The FFT component of this file is modified based on Apple's FFT tutorial
+//  https://developer.apple.com/documentation/accelerate/finding_the_component_frequencies_in_a_composite_sine_wave
 
 import Foundation
 import AVFoundation
@@ -80,40 +82,6 @@ class SimpleFFT {
                         
 //                        highlights_freq = [829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842, 843]
                         highlights_mag = Array(forwardOutputMagnitude[829...843])
-                        // filter out the low frequencies
-//                        let lowest_possible = Int(16000 * (Double(n) / sample_rate))
-//                        let highest_possible = halfN - 1
-//                        let filteredOutput = forwardOutputMagnitude[lowest_possible...highest_possible]
-//                        for magnitude in filteredOutput.enumerated() {
-//                            if magnitude.element > 1 {
-//                                let curr_freq = Double(magnitude.offset + 1 + lowest_possible) * sample_rate / Double(n)
-//                                let curr_mag = magnitude.element
-//                                print("\(curr_freq) \(curr_mag)")
-//                            }
-//                        }
-//                        for magnitude in forwardOutputMagnitude.enumerated() {
-//                            if magnitude.element > 1 {
-//                                print("\(Double(magnitude.offset + 1) * sample_rate / Double(n)) \(magnitude.element)")
-//                            }
-//                        }
-//                        print()
-                        
-                        // filteredOutput is an array slice, which uses the same array buffer as outputmagnitude
-                        // as well as index!!!
-                        // so here, we are using index notation of output magnitude but only on filteredOutput
-                        // to ignore lower frequency results
-//                        let dividing_bin = Int(Double(dividing_threashold) * (Double(n) / sample_rate))
-//                        assert(filteredOutput[lowest_possible...dividing_bin].count > 0)
-//                        assert(filteredOutput[(dividing_bin + 1)...highest_possible].count > 0)
-//                        highlights_mag[0] = filteredOutput[lowest_possible...(dividing_bin - 1)].reduce(0, +)
-//                        highlights_mag[1] = filteredOutput[dividing_bin]
-//                        highlights_mag[2] = filteredOutput[(dividing_bin + 1)...highest_possible].reduce(0, +)
-//                        let topMagnitudes = forwardOutputMagnitude.enumerated().filter {
-//                            $0.element > 10
-//                        }.map {
-//                            return Double($0.offset + 1) * sample_rate / Double(n)
-//                        }
-//                        print(topMagnitudes)
                         
                     }
                 }
@@ -122,37 +90,5 @@ class SimpleFFT {
         return highlights_mag
     }
     
-//    func runFFTonSignal2(_ signal: [Float]) {
-//        // As above, frameOfSamples = [1.0, 2.0, 3.0, 4.0]
-//
-//        let frameCount = frameOfSamples.count
-//
-//        let reals = UnsafeMutableBufferPointer<Float>.allocate(capacity: frameCount)
-//        defer {reals.deallocate()}
-//        let imags =  UnsafeMutableBufferPointer<Float>.allocate(capacity: frameCount)
-//        defer {imags.deallocate()}
-//        _ = reals.initialize(from: frameOfSamples)
-//        imags.initialize(repeating: 0.0)
-//        var complexBuffer = DSPSplitComplex(realp: reals.baseAddress!, imagp: imags.baseAddress!)
-//
-//        let log2Size = Int(log2(Float(frameCount)))
-//        print(log2Size)
-//
-//        guard let fftSetup = vDSP_create_fftsetup(vDSP_Length(log2Size), FFTRadix(kFFTRadix2)) else {
-//            return []
-//        }
-//        defer {vDSP_destroy_fftsetup(fftSetup)}
-//
-//        // Perform a forward FFT
-//        vDSP_fft_zip(fftSetup, &complexBuffer, 1, vDSP_Length(log2Size), FFTDirection(FFT_FORWARD))
-//
-//        let realFloats = Array(reals)
-//        let imaginaryFloats = Array(imags)
-//
-//        print(realFloats)
-//        print(imaginaryFloats)
-//
-//        return realFloats
-//    }
 }
 

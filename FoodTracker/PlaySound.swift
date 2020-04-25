@@ -5,6 +5,8 @@
 //  Created by Liang Arthur on 4/15/20.
 //  Copyright © 2020 Liang Arthur. All rights reserved.
 //
+//  Most of code in this file is modified based on Apple's Signal Generator tutorial
+//  for WWDC 2019 (https://developer.apple.com/documentation/avfoundation/audio_track_engineering/building_a_signal_generator)
 
 import Foundation
 import AVFoundation
@@ -47,11 +49,6 @@ let triangle = { (phase: Float) -> Float in
 }
 
 func playSignalSound(_ sampleRate: Float, frequency: Float = 440, amplitude: Float = 1.0, duration: Float = 5.0) -> AVAudioSourceNode {
-//    let frequency = getFloatForKeyOrDefault(OptionNames.frequency, 440)
-//    let amplitude = min(max(getFloatForKeyOrDefault(OptionNames.amplitude, 0.5), 0.0), 1.0)
-//    amplitude = min(max(amplitude, 0.0), 1.0)
-//    let duration = getFloatForKeyOrDefault(OptionNames.duration, 5.0)
-//    let outputPath = userDefaults.string(forKey: OptionNames.output)
     
     if amplitude > 1.0 || amplitude < 0.0 {
         print("Bad amplitude that is out of range of [0.0, 1.0]: ", amplitude.description)
@@ -60,17 +57,6 @@ func playSignalSound(_ sampleRate: Float, frequency: Float = 440, amplitude: Flo
 
     var signal: (Float) -> Float
     signal = sine
-
-//    let engine = AVAudioEngine()
-//    let mainMixer = engine.mainMixerNode
-//    let output = engine.outputNode
-//    let outputFormat = output.inputFormat(forBus: 0)
-//    let sampleRate = Float(outputFormat.sampleRate)
-//    // Use output format for input but reduce channel count to 1
-//    let inputFormat = AVAudioFormat(commonFormat: outputFormat.commonFormat,
-//                                    sampleRate: outputFormat.sampleRate,
-//                                    channels: 1,
-//                                    interleaved: outputFormat.isInterleaved)
 
     var currentPhase: Float = 0
     // The interval by which we advance the phase each frame.
@@ -98,29 +84,5 @@ func playSignalSound(_ sampleRate: Float, frequency: Float = 440, amplitude: Flo
         return noErr
     }
 
-//    engine.attach(srcNode)
-//    engine.connect(srcNode, to: output, format: inputFormat)
     return srcNode
 }
-
-//    engine.connect(srcNode, to: mainMixer, format: inputFormat)
-//    engine.connect(mainMixer, to: output, format: outputFormat)
-//    mainMixer.outputVolume = 0.5
-//
-//    do {
-//        try engine.start()
-//
-//        // When writing the output file, the run loop will be stopped from the tap block
-//        // after the number of samples for the requested duration are written.
-//        // Otherwise, the run duration of the run loop is specified when started.
-////        if outFile != nil {
-////        CFRunLoopRun()
-////        } else {
-//        CFRunLoopRunInMode(.defaultMode, CFTimeInterval(duration), false)
-////        }
-//        engine.stop()
-//    } catch {
-//        print("Could not start engine: \(error)")
-//    }
-
-//}

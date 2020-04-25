@@ -17,27 +17,18 @@ struct ContentView: View {
     var simpleFFT: SimpleFFT = SimpleFFT()
     @State var pushOrPullState: String = "None"
     
-    @State var count = 0
-    
+    // main classifier strategy: use two buffers to monitor left side and right side of the peak
     @State var leftResultBuffer: ResultBuffer = ResultBuffer(life_span: 7, pass_threshold_count: 4, threshold: 1.2)
     @State var rightResultBuffer: ResultBuffer = ResultBuffer(life_span: 7, pass_threshold_count: 4, threshold: 1.1)
     
-    @State var leftValue: Float = 0
-    @State var midValue: Float = 0
-    @State var rightValue: Float = 0
-    
+    // This is fixed for 44.1 khz sample rate and 2048 values for each FFT
     let frequencyBuffer = ["17.85", "17.87", "17.89", "17.92", "17.94", "17.96", "17.98", "18.00", "18.02", "18.04", "18.07", "18.09", "18.11", "18.13", "18.15"]
     @State var magnitudeBuffer = [Float] (repeating: 0, count: 15)
-    
     
     var body: some View {
         VStack {
             Button(action: {
-                print("button was tapped")
-//                DispatchQueue.main.async() {
-//                    playSignalSound(frequency: 18000, amplitude: 1.0, duration: 1)
-//                }
-
+//                print("button was tapped")
                 // set up engine for the FFT recording
                 let input = self.engine.inputNode
                 let bus = 0
@@ -55,8 +46,10 @@ struct ContentView: View {
                 self.engine.attach(srcNode)
                 self.engine.connect(srcNode, to: output, format: inputFormat)
                 
-                print("input sample rate \(inputFormat.sampleRate)")
-                print("output sample rate \(output.outputFormat(forBus: 0).sampleRate)")
+//                print("input sample rate \(inputFormat.sampleRate)")
+//                print("output sample rate \(output.outputFormat(forBus: 0).sampleRate)")
+                assert(inputFormat.sampleRate == 44100)
+                assert(output.outputFormat(forBus: 0).sampleRate == 44100)
                 
                 // start the engine
                 // which should start recording and signal generation
@@ -80,12 +73,6 @@ struct ContentView: View {
             }
             Text("")
             Text("\(self.pushOrPullState)")
-//            Text("")
-//            Text("")
-//            Spacer().frame(height: 500)
-//            Text("Left Side: \(self.leftValue)")
-//            Text("Peak:      \(self.midValue)")
-//            Text("Right Side: \(self.rightValue)")
             VStack {
                 HStack {
                   // 2
@@ -119,23 +106,11 @@ struct ContentView: View {
             samples.append(theSample)
         }
 //        print("input framelength \(samples.count)")
-        self.count = self.count + 1
         self.magnitudeBuffer = self.simpleFFT.runFFTonSignal(samples)
         
-        print("left")
         self.leftResultBuffer.addNewResult(Array(self.magnitudeBuffer[0...6]))
-        print("right")
         self.rightResultBuffer.addNewResult(Array(self.magnitudeBuffer[8...14]))
         
-//        let highlight_mag = self.simpleFFT.runFFTonSignal(samples)
-//
-//        self.leftValue = highlight_mag[0] / highlight_mag[1]
-//        self.midValue = highlight_mag[1]
-//        self.rightValue = highlight_mag[2] / highlight_mag[1]
-//
-//        self.leftResultBuffer.addNewResult(self.leftValue)
-//        self.rightResultBuffer.addNewResult(self.rightValue)
-//
         if self.leftResultBuffer.passThreshold() {
             self.pushOrPullState = "Pull"
         } else if self.rightResultBuffer.passThreshold() {
@@ -144,13 +119,9 @@ struct ContentView: View {
             self.pushOrPullState = "None"
         }
 
-//        print("Left Side: \(self.leftValue)")
-////        print("Peak:      \(self.midValue)")
-//        print("Right Side: \(self.rightValue)")
     }
     
     func endRecording() {
-        print("total \(self.count)")
         self.engine.stop()
     }
 }

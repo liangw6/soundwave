@@ -5,6 +5,7 @@
 //  Created by Liang Arthur on 4/22/20.
 //  Copyright © 2020 Liang Arthur. All rights reserved.
 //
+//  ResultBuffer keeps track of a few most recent results and how many of those results have passed the threshold
 
 import Foundation
 
@@ -28,9 +29,9 @@ class ResultBuffer {
     }
     
     func addNewResult(_ results: [Float]) {
-        print(prev_result)
-        print(results)
-        print()
+//        print(prev_result)
+//        print(results)
+//        print()
         
         // all lifespan - 1
         if self.count >= self.ignore_first_n {
