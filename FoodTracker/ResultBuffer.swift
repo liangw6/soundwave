@@ -6,6 +6,11 @@
 //  Copyright © 2020 Liang Arthur. All rights reserved.
 //
 //  ResultBuffer keeps track of a few most recent results and how many of those results have passed the threshold
+//  It uses a different approach from the original soudwave paper in that it uses mostly time information to do classification, e.g. over
+//  the past 7 samples, how many of them are above threshold.
+//  In contrast, the paper finds the peak at each time interval, with little time relevance used.
+//  Using time information helps to provide a smoother classification result and is necessary when the second peak is hardly visible
+//  or highly variable in case of different volumes on user device.
 
 import Foundation
 
